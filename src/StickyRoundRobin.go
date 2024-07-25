@@ -36,5 +36,10 @@ func (lb *srrLoadBalancer) getNextAvailableServer(ip string) Server {
 func (lb *srrLoadBalancer) srrServeProxy(res http.ResponseWriter, req *http.Request, ip string) {
 	targetServer := lb.getNextAvailableServer(ip)
 	fmt.Printf("forwarding request to address: %q\n", targetServer.Address())
+	if targetServer.IsAlive() {
+		fmt.Println("Server is alive")
+	} else {
+		fmt.Println("Server is down")
+	}
 	targetServer.Serve(res, req)
 }

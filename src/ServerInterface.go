@@ -1,6 +1,10 @@
 package main
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+	"time"
+)
 
 type Server interface {
 	Address() string
@@ -13,7 +17,18 @@ func (s *simpleServer) Address() string {
 }
 
 func (s *simpleServer) IsAlive() bool {
-	return true
+	client := http.Client{
+		Timeout: 2 * time.Second,
+	}
+	res, err := client.Get(s.addr)
+	if err != nil {
+		fmt.Println("Error with: ", err)
+		return false
+
+	}
+	defer res.Body.Close()
+
+	return res.StatusCode == http.StatusOK
 }
 func (s *simpleServer) Serve(res http.ResponseWriter, req *http.Request) {
 	s.proxy.ServeHTTP(res, req)

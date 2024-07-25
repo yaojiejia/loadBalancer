@@ -18,6 +18,10 @@ func newWRRLoadBalancer(port string, servers []Server) *wrrLoadBalancer {
 
 }
 
+func (lb *wrrLoadBalancer) assignWeights() {
+
+}
+
 func (lb *wrrLoadBalancer) getNextAvailableServer() {
 
 }
