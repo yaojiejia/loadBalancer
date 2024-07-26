@@ -1,5 +1,5 @@
 # Go Load Balancer
-
+[![CodeFactor](https://www.codefactor.io/repository/github/yaojiejia/loadbalancer/badge)](https://www.codefactor.io/repository/github/yaojiejia/loadbalancer)
 A lightweight and efficient load balancer written in Go, supporting multiple load balancing algorithms including Round Robin, Weighted Round Robin, Sticky Round Robin, and IP Hashing.
 
 ## Features
