@@ -37,6 +37,27 @@ A lightweight and efficient load balancer written in Go, supporting multiple loa
    ```sh
    docker build -t loadbalancer:latest .
    docker run -d -p 8070:8070 loadbalancer:latest
+3. **Example starting screen**
+```shell
+>=>                                  >=>  >=>>=>                 >=>                                                 
+>=>                                  >=>  >>   >=>               >=>                                                 
+>=>          >=>        >=> >=>      >=>  >>    >=>    >=> >=>   >=>    >=> >=>  >==>>==>     >==>   >==>    >> >==> 
+>=>        >=>  >=>   >=>   >=>   >=>>=>  >==>>=>    >=>   >=>   >=>  >=>   >=>   >=>  >=>  >=>    >>   >=>   >=>    
+>=>       >=>    >=> >=>    >=>  >>  >=>  >>    >=> >=>    >=>   >=> >=>    >=>   >=>  >=> >=>     >>===>>=>  >=>    
+>=>        >=>  >=>   >=>   >=>  >>  >=>  >>     >>  >=>   >=>   >=>  >=>   >=>   >=>  >=>  >=>    >>         >=>    
+>=======>    >=>       >==>>>==>  >=>>=>  >===>>=>    >==>>>==> >==>   >==>>>==> >==>  >=>    >==>  >====>   >==>
+Port: 8080
+Host: localhost
+Algorithm: roundrobin
+Server https://facebook.com added!
+Server https://google.com added!
+Server https://instagram.com added!
+Forwarded servers added! Starting load balancer server...
+Program started at 8080
+
+                                                                                                                     
+```
+
    
 ## Configuration
 
