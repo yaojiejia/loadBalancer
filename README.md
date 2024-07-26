@@ -20,13 +20,12 @@ A lightweight and efficient load balancer written in Go, supporting multiple loa
 - **main.go**: The main Go application file.
 - **Dockerfile**: The Dockerfile to build the Docker image.
 - **go.mod**: The Go module file.
-- **loadBalancer**: Directory containing NGINX configuration for load balancing (if using Docker Compose).
-- **docker-compose.yml**: Docker Compose file for setting up the application and load balancer.
+- **loadBalancer**: Directory containing configuration for load balancing
 
 ### Building and Running the Load Balancer
 
 1. **Clone the Repository**
 
    ```sh
-   git clone https://github.com/yourusername/go-load-balancer.git
-   cd go-load-balancer
+   git clone https://github.com/yaojiejia/loadBalancer.git
+   cd loadBalancer
