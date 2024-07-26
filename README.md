@@ -1,5 +1,8 @@
 # Go Load Balancer
+![Static Badge](https://img.shields.io/badge/go%20version-1.20-green)
 [![CodeFactor](https://www.codefactor.io/repository/github/yaojiejia/loadbalancer/badge)](https://www.codefactor.io/repository/github/yaojiejia/loadbalancer)
+[![Go Report Card](https://goreportcard.com/badge/github.com/yaojiejia/loadBalancer)](https://goreportcard.com/report/github.com/yaojiejia/loadBalancer)
+![Static Badge](https://img.shields.io/badge/license-MIT-green)\
 A lightweight and efficient load balancer written in Go, supporting multiple load balancing algorithms including Round Robin, Weighted Round Robin, Sticky Round Robin, and IP Hashing.
 
 ## Features
