@@ -38,7 +38,7 @@ A lightweight and efficient load balancer written in Go, supporting multiple loa
    docker build -t loadbalancer:latest .
    docker run -d -p 8070:8070 loadbalancer:latest
 3. **Example starting screen**
-```shell
+```bash
 >=>                                  >=>  >=>>=>                 >=>                                                 
 >=>                                  >=>  >>   >=>               >=>                                                 
 >=>          >=>        >=> >=>      >=>  >>    >=>    >=> >=>   >=>    >=> >=>  >==>>==>     >==>   >==>    >> >==> 
