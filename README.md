@@ -29,3 +29,33 @@ A lightweight and efficient load balancer written in Go, supporting multiple loa
    ```sh
    git clone https://github.com/yaojiejia/loadBalancer.git
    cd loadBalancer
+2. **Build the Docker Image and Run it"
+   ```sh
+   docker build -t loadbalancer:latest .
+   docker run -d -p 8070:8070 loadbalancer:latest
+   
+## Configuration
+
+### main.go
+
+The main Go application file contains the implementation of the load balancing algorithms. You can configure the servers and the load balancing algorithm by modifying this file.
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+    // other necessary imports
+)
+
+func main() {
+    // setup your load balancing algorithms and servers here
+
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        // load balancing logic
+    })
+
+    fmt.Println("Starting load balancer on port 8080")
+    http.ListenAndServe(":8080", nil)
+}
