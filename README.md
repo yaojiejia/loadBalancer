@@ -27,11 +27,12 @@ A lightweight and efficient load balancer written in Go, supporting multiple loa
 
 ### Building and Running the Load Balancer
 
-1. **Clone the Repository**
+1. **Clone the Repository and Run Locally**
 
    ```sh
    git clone https://github.com/yaojiejia/loadBalancer.git
    cd loadBalancer
+   go run .
 2. **Build the Docker Image and Run it**
    ```sh
    docker build -t loadbalancer:latest .
@@ -62,3 +63,19 @@ func main() {
     fmt.Println("Starting load balancer on port 8080")
     http.ListenAndServe(":8080", nil)
 }
+```
+### config.yaml
+
+You can also directly modify `config.yaml` to change the target IP address as well as the load balancing methods
+```yaml
+localServer:
+  port: 8080
+  host: localhost
+
+ProxyServer:
+  server1: "https://facebook.com"
+  server2: "https://google.com"
+  server3: "https://instagram.com"
+balancer:
+  method: round-robin
+```
