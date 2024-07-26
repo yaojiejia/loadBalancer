@@ -11,20 +11,40 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+var (
+	ascii = `
+  O~~                               O~~ O~~ O~~              O~~                                           
+O~~                               O~~ O~    O~~            O~~                                           
+O~~         O~~       O~~         O~~ O~     O~~   O~~     O~~   O~~    O~~ O~~     O~~~   O~~    O~ O~~~
+O~~       O~~  O~~  O~~  O~~  O~~ O~~ O~~~ O~    O~~  O~~  O~~ O~~  O~~  O~~  O~~ O~~    O~   O~~  O~~   
+O~~      O~~    O~~O~~   O~~ O~   O~~ O~     O~~O~~   O~~  O~~O~~   O~~  O~~  O~~O~~    O~~~~~ O~~ O~~   
+O~~       O~~  O~~ O~~   O~~ O~   O~~ O~      O~O~~   O~~  O~~O~~   O~~  O~~  O~~ O~~   O~         O~~   
+O~~~~~~~~   O~~      O~~ O~~~ O~~ O~~ O~~~~ O~~   O~~ O~~~O~~~  O~~ O~~~O~~~  O~~   O~~~  O~~~~   O~~~   
+                                                                                                         
+                                                              
+                                     
+`
+)
+
 func main() {
-	fmt.Println("Welcome to load balancer")
+
+	fmt.Println(ascii)
 
 	// Read and parse the config.yaml file
 	configFile, err := ioutil.ReadFile("config.yaml")
 	if err != nil {
-		log.Fatalf("Error reading config file: %v", err)
+		log.Fatalf("Error reading config file: %v \n", err)
 	}
 
 	var config Config
 	err = yaml.Unmarshal(configFile, &config)
 	if err != nil {
-		log.Fatalf("Error parsing config file: %v", err)
+		log.Fatalf("Error parsing config file: %v \n", err)
 	}
+
+	fmt.Printf("Port: %d\n", config.LocalServer.Port)
+	fmt.Printf("Host: %s\n", config.LocalServer.Host)
+	fmt.Printf("Algorithm: %s\n", config.Balancer.Method)
 
 	// Use the configuration values
 	var servers []proxy.Server
@@ -33,21 +53,21 @@ func main() {
 	for _, addr := range serverAddresses {
 		err := proxy.ValidateURL(addr)
 		if err != nil {
-			fmt.Println("Error with: ", err)
+			fmt.Println("Error with: \n", err)
 			continue
 		}
 
 		tempServer, err := proxy.NewSimpleServer(addr)
 		if err != nil {
-			fmt.Println("Error creating server: ", err)
+			fmt.Println("Error creating server: \n", err)
 			continue
 		}
 
 		if tempServer.IsAlive() {
 			servers = append(servers, tempServer)
-			fmt.Println("Server added!")
+			fmt.Printf("Server %s added!\n", addr)
 		} else {
-			fmt.Println("Server provided is currently down: " + addr)
+			fmt.Println("Server provided is currently down: \n" + addr)
 		}
 	}
 
@@ -65,7 +85,7 @@ func main() {
 	case "sroundrobin":
 		srrLoadBalancer = balancer.NewSRRLoadBalancer(fmt.Sprintf("%d", config.LocalServer.Port), servers)
 	default:
-		log.Fatalf("Invalid balancer method: %s", config.Balancer.Method)
+		log.Fatalf("Invalid balancer Algo: %s", config.Balancer.Method)
 	}
 
 	handleRedirect := func(res http.ResponseWriter, req *http.Request) {
