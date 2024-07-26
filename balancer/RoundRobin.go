@@ -8,14 +8,14 @@ import (
 )
 
 // baseLoadBalancer contains fields and methods common to both load balancers
-type baseLoadBalancer struct {
+type BaseLoadBalancer struct {
 	Port            string
 	RoundRobinCount int
 	Servers         []proxy.Server
 }
 
 // getNextAvailableServer is now part of baseLoadBalancer
-func (lb *baseLoadBalancer) GetNextAvailableServer() proxy.Server {
+func (lb *BaseLoadBalancer) GetNextAvailableServer() proxy.Server {
 	server := lb.Servers[lb.RoundRobinCount%len(lb.Servers)]
 	for !server.IsAlive() {
 		lb.RoundRobinCount++
@@ -26,14 +26,14 @@ func (lb *baseLoadBalancer) GetNextAvailableServer() proxy.Server {
 }
 
 // rrLoadBalancer for round-robin strategy
-type rrLoadBalancer struct {
-	baseLoadBalancer // Embedding
+type RRLoadBalancer struct {
+	BaseLoadBalancer // Embedding
 }
 
 // New function for rrLoadBalancer
-func NewRRLoadBalancer(port string, servers []proxy.Server) *rrLoadBalancer {
-	return &rrLoadBalancer{
-		baseLoadBalancer: baseLoadBalancer{
+func NewRRLoadBalancer(port string, servers []proxy.Server) *RRLoadBalancer {
+	return &RRLoadBalancer{
+		BaseLoadBalancer: BaseLoadBalancer{
 			Port:    port,
 			Servers: servers,
 		},
@@ -41,7 +41,7 @@ func NewRRLoadBalancer(port string, servers []proxy.Server) *rrLoadBalancer {
 }
 
 // rrServeProxy uses the base getNextAvailableServer method
-func (lb *rrLoadBalancer) RrServeProxy(res http.ResponseWriter, req *http.Request) {
+func (lb *RRLoadBalancer) RrServeProxy(res http.ResponseWriter, req *http.Request, ip string) {
 	targetServer := lb.GetNextAvailableServer()
 	fmt.Printf("forwarding request to address: %q\n", targetServer.Address())
 	targetServer.Serve(res, req)

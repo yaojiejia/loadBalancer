@@ -8,15 +8,15 @@ import (
 )
 
 // srrLoadBalancer for sticky round-robin strategy
-type srrLoadBalancer struct {
-	baseLoadBalancer // Embedding
+type SRRLoadBalancer struct {
+	BaseLoadBalancer // Embedding
 	UserMap          map[string]proxy.Server
 }
 
 // New function for srrLoadBalancer
-func NewSRRLoadBalancer(port string, servers []proxy.Server) *srrLoadBalancer {
-	return &srrLoadBalancer{
-		baseLoadBalancer: baseLoadBalancer{
+func NewSRRLoadBalancer(port string, servers []proxy.Server) *SRRLoadBalancer {
+	return &SRRLoadBalancer{
+		BaseLoadBalancer: BaseLoadBalancer{
 			Port:    port,
 			Servers: servers,
 		},
@@ -25,17 +25,17 @@ func NewSRRLoadBalancer(port string, servers []proxy.Server) *srrLoadBalancer {
 }
 
 // getNextAvailableServer is overridden to include sticky session logic
-func (lb *srrLoadBalancer) GetNextAvailableServer(ip string) proxy.Server {
+func (lb *SRRLoadBalancer) GetNextAvailableServer(ip string) proxy.Server {
 	if server, exists := lb.UserMap[ip]; exists {
 		return server
 	}
-	server := lb.baseLoadBalancer.GetNextAvailableServer()
+	server := lb.BaseLoadBalancer.GetNextAvailableServer()
 	lb.UserMap[ip] = server
 	return server
 }
 
 // srrServeProxy uses the overridden getNextAvailableServer method
-func (lb *srrLoadBalancer) SrrServeProxy(res http.ResponseWriter, req *http.Request, ip string) {
+func (lb *SRRLoadBalancer) SrrServeProxy(res http.ResponseWriter, req *http.Request, ip string) {
 	targetServer := lb.GetNextAvailableServer(ip)
 	fmt.Printf("forwarding request to address: %q\n", targetServer.Address())
 	if targetServer.IsAlive() {

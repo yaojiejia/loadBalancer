@@ -1,3 +1,10 @@
-server:
+localServer:
   port: 8080
   host: localhost
+
+ProxyServer:
+  server1: "https://facebook.com"
+  server2: "https://google.com"
+  server3: "https://instagram.com"
+balancer:
+  method: roundrobin
