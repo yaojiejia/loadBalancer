@@ -66,7 +66,7 @@ func main() {
 ```
 ### config.yaml
 
-You can also directly modify `config.yaml` to change the target IP address as well as the load balancing methods
+You can also directly modify `config.yaml` to change the target IP address as well as the load balancing algorithms.
 ```yaml
 localServer:
   port: 8080
@@ -77,5 +77,14 @@ ProxyServer:
   server2: "https://google.com"
   server3: "https://instagram.com"
 balancer:
-  method: round-robin
+  method: roundrobin
 ```
+Currently support:
+```yaml
+var (
+  Round Robin = "roundrobin"
+  Sticky Round Robin = "sroundrobin"
+  IP Hashing = "iphash"
+)
+```
+Replace the desired method name with the yaml balancer.method
