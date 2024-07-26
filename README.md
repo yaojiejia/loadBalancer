@@ -32,7 +32,7 @@ A lightweight and efficient load balancer written in Go, supporting multiple loa
    ```sh
    git clone https://github.com/yaojiejia/loadBalancer.git
    cd loadBalancer
-2. **Build the Docker Image and Run it"
+2. **Build the Docker Image and Run it**
    ```sh
    docker build -t loadbalancer:latest .
    docker run -d -p 8070:8070 loadbalancer:latest
