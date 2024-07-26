@@ -8,18 +8,18 @@ import (
 	"os"
 )
 
-type simpleServer struct {
+type SimpleServer struct {
 	Addr  string
 	Proxy *httputil.ReverseProxy
 }
 
-func NewSimpleServer(addr string) (*simpleServer, error) {
+func NewSimpleServer(addr string) (*SimpleServer, error) {
 	serverUrl, err := url.Parse(addr)
 	if err != nil {
 		return nil, err
 	}
 
-	return &simpleServer{
+	return &SimpleServer{
 		Addr:  addr,
 		Proxy: httputil.NewSingleHostReverseProxy(serverUrl),
 	}, nil

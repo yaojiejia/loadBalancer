@@ -12,11 +12,11 @@ type Server interface {
 	Serve(res http.ResponseWriter, req *http.Request)
 }
 
-func (s *simpleServer) Address() string {
+func (s *SimpleServer) Address() string {
 	return s.Addr
 }
 
-func (s *simpleServer) IsAlive() bool {
+func (s *SimpleServer) IsAlive() bool {
 	client := http.Client{
 		Timeout: 2 * time.Second,
 	}
@@ -30,6 +30,6 @@ func (s *simpleServer) IsAlive() bool {
 
 	return res.StatusCode == http.StatusOK
 }
-func (s *simpleServer) Serve(res http.ResponseWriter, req *http.Request) {
+func (s *SimpleServer) Serve(res http.ResponseWriter, req *http.Request) {
 	s.Proxy.ServeHTTP(res, req)
 }
