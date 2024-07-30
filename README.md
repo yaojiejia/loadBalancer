@@ -108,4 +108,4 @@ var (
   IP Hashing = "iphash"
 )
 ```
-Replace the desired method name with the yaml balancer.method
+Replace the desired method name with the yaml balancer.method.
