@@ -64,6 +64,7 @@ Program started at 8080
 ### main.go
 
 The main Go application file contains the implementation of the load balancing algorithms. You can configure the servers and the load balancing algorithm by modifying this file.
+The example usage cases can be found in the main.go.
 
 ```go
 package main
